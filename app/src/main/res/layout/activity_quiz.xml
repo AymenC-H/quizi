@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_img"
+    tools:context=".quiz">
+
+    <LinearLayout
+        android:id="@+id/child_side"
+        android:layout_width="382dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="10sp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Child name" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="User"
+            android:inputType="text"
+            android:textSize="32sp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="399dp"
+        android:layout_height="493dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_side"
+        app:layout_constraintVertical_bias="0.083">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="403dp"
+                android:layout_height="62dp"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="177dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Quizz"
+                    android:textSize="28sp"
+                    android:theme="@style/textViewStyle" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="33sp"
+                    android:layout_marginRight="5sp"
+                    android:gravity="center"
+                    android:text="nbQ"
+                    android:textSize="28sp"
+                    android:theme="@style/textViewStyle" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="13sp"
+                    android:layout_marginRight="5sp"
+                    android:gravity="center"
+                    android:text="nbP"
+                    android:textSize="28sp"
+                    android:theme="@style/textViewStyle" />
+
+            </TableRow>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="400dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="628dp"
+        android:gravity="top"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/light_button_design"
+            android:paddingHorizontal="5sp"
+            android:text="Add"
+            android:theme="@style/BaseButtonStyle" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/update_button"
+            android:layout_width="148dp"
+            android:layout_height="78dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/light_button_design"
+            android:text="Change"
+            android:theme="@style/BaseButtonStyle" />
+
+        <ImageButton
+            android:id="@+id/del_but"
+            android:layout_width="78dp"
+            android:layout_height="88dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:translationY="-7dp"
+            app:srcCompat="@drawable/trash_bin_outline" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

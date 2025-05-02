@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/purple"/>
+            <size android:width="100sp" android:height="80sp"/>
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle" android:dither="true">
+            <stroke android:color="@color/purple" android:width="4dp"/>
+            <size android:width="100sp" android:height="80sp"/>
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+</selector>
+    <!--<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator
+                android:duration="500"
+                android:propertyName="backgroundColor"
+                android:valueFrom="?attr/buttonBackgroundColor"
+                android:valueTo="?attr/buttonPressedBackgroundColor"
+                android:valueType="colorType" />
+            <objectAnimator
+                android:duration="500"
+                android:propertyName="textColor"
+                android:valueFrom="?attr/buttonTextColor"
+                android:valueTo="?attr/buttonPressedTextColor"
+                android:valueType="colorType" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator
+                android:duration="500"
+                android:propertyName="backgroundColor"
+                android:valueFrom="?attr/buttonPressedBackgroundColor"
+                android:valueTo="?attr/buttonBackgroundColor"
+                android:valueType="colorType" />
+            <objectAnimator
+                android:duration="500"
+                android:propertyName="textColor"
+                android:valueFrom="?attr/buttonPressedTextColor"
+                android:valueTo="?attr/buttonTextColor"
+                android:valueType="colorType" />
+        </set>
+    </item>
+</selector>-->

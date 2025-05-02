@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_img"
+    android:theme="@style/Base.Theme.Quiz"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="281dp"
+        android:layout_height="96dp"
+        android:fontFamily="@font/comic_neue_bold"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#673AB7"
+        android:textSize="96sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="384dp"
+        android:layout_height="504dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.13">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="Parent@gmail.net"
+            android:inputType="textEmailAddress"
+            android:maxLength="90"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100px"
+            android:gravity="center"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2sp"
+            android:hint="********"
+            android:inputType="textPassword"
+            android:textSize="32sp" />
+
+        <EditText
+            android:id="@+id/passc"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="retype password"
+            android:inputType="textPassword"
+            android:textSize="32sp" />
+
+        <RadioGroup
+            android:id="@+id/rgid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/choice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15sp"
+                android:gravity="center"
+                android:text="Questions"
+                android:textColor="@color/mediumPurple" />
+
+            <RadioButton
+                android:id="@+id/choice2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="QUIZ"
+                android:textColor="@color/mediumPurple" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/start_btn"
+                android:layout_width="174dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/light_button_design"
+                android:gravity="center"
+                android:text="manage"
+                android:theme="@style/BaseButtonStyle" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/play_btn"
+                android:layout_width="174dp"
+                android:layout_height="80dp"
+                android:background="@drawable/light_button_design"
+                android:gravity="center"
+                android:text="@string/begin2"
+                android:theme="@style/BaseButtonStyle" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exp_btns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_button_design"
+        android:padding="10sp"
+        android:paddingVertical="1sp"
+        android:text="export"
+        android:textAllCaps="true"
+        android:textSize="40sp"
+        android:theme="@style/BaseButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/help_btn"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/option_btn"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.2" />-->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/option_btn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginLeft="20sp"
+        android:background="@drawable/help_button_theme"
+        android:gravity="center"
+        android:text="O"
+        android:stateListAnimator="@null"
+        android:scaleY="1.1"
+        android:scaleX="1.1"
+        android:elevation="7dp"
+        android:textColor="@color/mediumPurple"
+        android:textSize="16pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <!--android:shadowDx="500"
+    android:shadowDy="20"
+        android:translationZ="10dp"
+    android:shadowRadius="20"-->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/help_btn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/help_button_theme"
+        android:gravity="center"
+        android:layout_marginRight="20sp"
+        android:text="\?"
+        android:stateListAnimator="@null"
+        android:elevation="7dp"
+        android:scaleY="1.1"
+        android:scaleX="1.1"
+        android:textColor="@color/mediumPurple"
+        android:textSize="16pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

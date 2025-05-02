@@ -1,0 +1,8 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Quiz" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:background">#c4b8d5</item>
+        <item name="android:textColor">#112233</item>
+        <!-- Customize your dark theme here. <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+</resources>

@@ -1,0 +1,33 @@
+<resources>
+    <!-- Base application theme.-->
+    <style name="Base.Theme.Quiz" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="background">@drawable/back_img</item>
+        <item name="android:textColor">#8947CC</item>
+        <item name="android:textSize">40sp</item>
+
+    </style>
+    <style name="textViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">#B264FF</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/comme_bold</item>
+    </style>
+    <style name="BaseButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#9A46ED</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingBottom">10sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/comme_bold</item>
+    </style>
+
+</resources>
+    <!-- Base Button Style (Dark Mode)
+    <style name="BaseButtonStyle.Dark" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/dark_button_design</item>
+        <item name="android:textColor">@color/mediumPurple</item>
+        <item name="android:fontFamily">@font/comme_bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:padding">12dp</item>
+    </style>-->
