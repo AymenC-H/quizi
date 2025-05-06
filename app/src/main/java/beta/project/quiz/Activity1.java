@@ -27,7 +27,8 @@ public class Activity1 extends AppCompatActivity {
         for (int i = 0; i < sums.length; i++)sum += sums[i];
         intent.putExtra("score",sum);*/
         intent.putExtra("scores",sums);
-        intent.putExtra("idqu",data.getStringExtra("idqu"));
+        intent.putExtra("idqu",data.getIntExtra("idqu",0));
+        intent.putExtra("quiz_name",data.getStringExtra("quiz_name"));
         intent.putExtra("idc",data.getStringExtra("name"));
         intent.putExtra("time",ctime);
         Log.d("Donny", "toScore: "+sums.length);
@@ -146,21 +147,22 @@ public class Activity1 extends AppCompatActivity {
         }
             });
         lbtn.setOnClickListener(v -> {
-            if(index==0 && calcul(index)) {
-                toScore();
-            }
-            else {
-                Eanswers[index][0] = r1.isChecked();
-                Eanswers[index][1] = r2.isChecked();
-                Eanswers[index][2] = r3.isChecked();
-                r1.setChecked(Eanswers[index][0]);
-                r2.setChecked(Eanswers[index][1]);
-                r3.setChecked(Eanswers[index][2]);
-                rbtn.setText("Next");
-                fill_activity(new String[]{quests[--index], answs1[index].substring(1), answs2[index].substring(1), answs3[index].substring(1), imgs[index]},Eanswers[index]);
-                pg.setText((index + 1) + "/" + quests.length);
-                if (index == 0) {
-                    lbtn.setText("Finish");
+            if(calcul(index)) {
+                if (index == 0) toScore();
+                else {
+                    Log.d("donno", "said false!!");
+                    Eanswers[index][0] = r1.isChecked();
+                    Eanswers[index][1] = r2.isChecked();
+                    Eanswers[index][2] = r3.isChecked();
+                    r1.setChecked(Eanswers[index][0]);
+                    r2.setChecked(Eanswers[index][1]);
+                    r3.setChecked(Eanswers[index][2]);
+                    rbtn.setText("Next");
+                    fill_activity(new String[]{quests[--index], answs1[index].substring(1), answs2[index].substring(1), answs3[index].substring(1), imgs[index]}, Eanswers[index]);
+                    pg.setText((index + 1) + "/" + quests.length);
+                    if (index == 0) {
+                        lbtn.setText("Finish");
+                    }
                 }
             }
         });
@@ -193,7 +195,6 @@ public class Activity1 extends AppCompatActivity {
                 ctime = Math.abs(millisUntilFinished / 1000 - endtime);
                 timer.setText(Integer.toString((int) ctime));
             }
-
             @Override
             public void onFinish() {
                 toScore();

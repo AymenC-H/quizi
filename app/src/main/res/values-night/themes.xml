@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Quiz" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:background">#c4b8d5</item>

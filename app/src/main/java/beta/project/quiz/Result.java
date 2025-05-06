@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -36,32 +38,25 @@ public class Result extends AppCompatActivity {
             double score = Arrays.stream(sc).sum() / sc.length;//Arrays.stream(sc).sum();
             String namec = data.getStringExtra("idc");
             DatabaseHelper dbHelper = new DatabaseHelper(this);
-            dbHelper.addScore(namec, data.getStringExtra("idqu"), score, data.getIntExtra("time", 0));
+            dbHelper.addScore(namec, data.getIntExtra("idqu",0), score, data.getIntExtra("time", 0));
             String result=Math.round(score * 100) + "%";
             texts.setText(result);
             SharedPreferences sp = getSharedPreferences("myOptions", Context.MODE_PRIVATE);
-            if(sp.getBoolean("notifOn", false)) {
+            if(sp.getBoolean("notifOn", false) & ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
                 Log.d("Donny", "onCreate: notified");
                 String name=(namec.length()>16)?namec.substring(0,16):namec;
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.logo)
-                        .setContentTitle(name +" passed "+data.getStringExtra("idqu"))
-                        .setContentText(namec + " has scored " +result+" in "+data.getStringExtra("idqu") + "with a time of :")
+                        .setContentTitle(name +" passed "+data.getStringExtra("quiz_name"))
+                        .setContentText(namec + " has scored " +result+" in "+data.getStringExtra("quiz_name") + "with a time of :")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
-
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
                 Log.d("Donny", "onCreate: notified1");
                 if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
                     notificationManager.notify(NOTIFICATION_ID, builder.build());
                 }
                 Log.d("Donny", "onCreate: notified2");
-                /*CharSequence name = "Quizi";
-                String description = namec + " had " +score+"in"+data.getStringExtra("idqu");
-                NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
-                channel.setDescription(description);
-                notificationManager.createNotificationChannel(channel);*/
             }
             /*requestPermissionLauncher = registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),

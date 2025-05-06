@@ -230,10 +230,10 @@
 
     <LinearLayout
         android:id="@+id/timeLL"
-        android:layout_width="175dp"
-        android:layout_height="78dp"
+        android:layout_width="164dp"
+        android:layout_height="95dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -245,8 +245,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/comic_neue_bold"
-            android:gravity="right"
-            android:text="150"
+            android:text="1178"
             android:textColor="@color/green"
             android:textSize="44sp"
             android:translationX="-20dp"
@@ -254,13 +253,13 @@
 
         <TextView
             android:id="@+id/maxtimer"
-            android:layout_width="70dp"
+            android:layout_width="71dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_weight="1"
             android:fontFamily="@font/comic_neue_bold"
             android:gravity="start|left"
-            android:text="21"
+            android:text="98"
             android:textColor="@color/dark_red"
             android:textSize="34sp" />
     </LinearLayout>

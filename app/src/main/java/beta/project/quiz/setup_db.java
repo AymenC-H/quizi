@@ -18,7 +18,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE1 = "score";
     private static final String TABLE1_COL1 = "name_c TEXT";
     private static final String TABLE1_COL2 = "value DOUBLE";
-    private static final String TABLE1_COL3 = "id_qu TEXT";
+    private static final String TABLE1_COL3 = "id_qu INTEGER";
     private static final String TABLE1_COL4 = "date_score INTEGER";
     private static final String TABLE1_COL5 = "time_taken INTEGER";
     private static final String TABLE2 = "child";
@@ -51,7 +51,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE2 + " (" + TABLE2_COL1 +");");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE3 + " (" + TABLE3_COL1 + ", " + TABLE3_COL2 + ", " + TABLE3_COL3 + ", " + TABLE3_COL4 + "," + TABLE3_COL5 + ", " + TABLE3_COL6 + ");");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE4 + " (" + TABLE4_COL1 + ", " + TABLE4_COL2 + ", " + TABLE4_COL3 + ", " + TABLE4_COL4 +", " + TABLE4_COL5 + ", " + TABLE4_COL6 + ", FOREIGN KEY (" + TABLE4_COL3.split(" ")[0] + ") REFERENCES " + TABLE3 + "(" + TABLE3_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE1 + " ( ids INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE1_COL1 + ", " + TABLE1_COL2 + ", " + TABLE1_COL3 + ", " + TABLE1_COL4 + ", " + TABLE1_COL5 +")");//, FOREIGN KEY (" + TABLE1_COL1.split(" ")[0] + ") REFERENCES " + TABLE2 + "(" + TABLE2_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE" + ", " + "FOREIGN KEY (" + TABLE1_COL3.split(" ")[0] + ") REFERENCES " + TABLE4 + "(" + TABLE4_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE1 + " ( ids INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE1_COL1 + ", " + TABLE1_COL2 + ", " + TABLE1_COL3 + ", " + TABLE1_COL4 + ", " + TABLE1_COL5 +", FOREIGN KEY (" + TABLE1_COL1.split(" ")[0] + ") REFERENCES " + TABLE2 + "(" + TABLE2_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (" + TABLE1_COL3.split(" ")[0] + ") REFERENCES " + TABLE4 + "(" + TABLE4_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE);");
     }
 
     @Override
@@ -162,7 +162,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        void addScore(String id_c,String id_qu, Double value,int timetk) {
+        void addScore(String id_c,int id_qu, Double value,int timetk) {
             Date date = new Date();
             values.put(TABLE1_COL1.split(" ")[0], id_c);
             values.put(TABLE1_COL2.split(" ")[0], value);

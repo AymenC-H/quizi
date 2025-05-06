@@ -173,9 +173,9 @@ public class quiz extends AppCompatActivity {
                     return;
                 }
                 dbHelper = new DatabaseHelper(this);
-                boolean b= dbHelper.existChild(name.getText().toString());
+                boolean b= dbHelper.existChild(name.getText().toString().trim());
                 if (b) {
-                    dbHelper.addChild(name.getText().toString());
+                    dbHelper.addChild(name.getText().toString().trim());
                     Toast.makeText(this, "New child added!", Toast.LENGTH_SHORT).show();
                 }
                 int[] idqus;String[] answs1,answs2,answs3,nameqs,urls;
@@ -196,7 +196,8 @@ public class quiz extends AppCompatActivity {
                 }
                 Intent intent = new Intent(quiz.this, Activity1.class);
                 intent.putExtra("name",(name.getText().toString().trim()));
-                intent.putExtra("idqu",res.nameq);
+                intent.putExtra("quiz_name",res.nameq);
+                intent.putExtra("idqu",res.id);
                 intent.putExtra("questions",nameqs);
                 intent.putExtra("answers1",answs1);
                 intent.putExtra("answers2",answs2);
