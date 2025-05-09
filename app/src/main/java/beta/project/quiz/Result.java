@@ -1,5 +1,8 @@
 package beta.project.quiz;
 
+import static beta.project.quiz.MainActivity.CHANNEL_ID;
+import static beta.project.quiz.MainActivity.NOTIFICATION_ID;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -7,22 +10,36 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
 
 public class Result extends AppCompatActivity {
     //private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 100;
-    private static final String CHANNEL_ID = "my_channel_id";
-    private static final int NOTIFICATION_ID = 1;
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {  // Android 13+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)!= PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Notification permission is needed to notify the parent at the end of every quiz.", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        101);
+            }
+        }
+    }
+
     //private ActivityResultLauncher<String> requestPermissionLauncher;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,36 +60,17 @@ public class Result extends AppCompatActivity {
             texts.setText(result);
             SharedPreferences sp = getSharedPreferences("myOptions", Context.MODE_PRIVATE);
             if(sp.getBoolean("notifOn", false) & ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                Log.d("Donny", "onCreate: notified");
-                String name=(namec.length()>16)?namec.substring(0,16):namec;
+                String namech=(namec.length()>16)?namec.substring(0,16):namec;
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.logo)
-                        .setContentTitle(name +" passed "+data.getStringExtra("quiz_name"))
-                        .setContentText(namec + " has scored " +result+" in "+data.getStringExtra("quiz_name") + "with a time of :")
+                        .setContentTitle(namech +" passed "+data.getStringExtra("quiz_name"))
+                        .setContentText(namec + " has scored " +result+" in "+data.getStringExtra("quiz_name") + " with a time of :"+data.getIntExtra("time",0)+"s")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-                Log.d("Donny", "onCreate: notified1");
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                    notificationManager.notify(NOTIFICATION_ID, builder.build());
-                }
-                Log.d("Donny", "onCreate: notified2");
+                notificationManager.notify(NOTIFICATION_ID, builder.build());
+                Log.d("Donny", "onCreate: notification sent");
             }
-            /*requestPermissionLauncher = registerForActivityResult(
-                    new ActivityResultContracts.RequestPermission(),
-                    isGranted -> {
-                        if (isGranted) {
-                            // Permission is granted. Continue the action or workflow in your app.
-                            showNotification();
-                        } else {
-                            // Explain to the user that the feature is unavailable because the
-                            // feature requires a permission that the user has denied. At the
-                            // same time, respect the user's decision. Don't link to system
-                            // settings in an effort to convince the user to change their
-                            // decision.
-                            Toast.makeText(this, "Notification permission denied", Toast.LENGTH_SHORT).show();
-                        }
-                    });*/
             String ch;
             Log.d("Donny", score + "onCreate: " + sc[0]);
             if (score > .4 && score < .6) ch = namec + " at AVERAGE score";

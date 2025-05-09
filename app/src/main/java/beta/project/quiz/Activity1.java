@@ -16,9 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 public class Activity1 extends AppCompatActivity {
-    TextView questT,pg,field1,field2,field3;CheckBox r1;CheckBox r2;CheckBox r3;String[] quests;String[] answs1;String[] answs2;String[] answs3;String[] imgs;
-    ImageView imgq;Intent data;
-    LinearLayout timell;
+    static TextView questT,pg,field1,field2,field3;static CheckBox r1,r2,r3;String[] quests,answs1,answs2,answs3,imgs;
+    static ImageView imgq;Intent data;
+    static LinearLayout timell;
     int index,endtime;long ctime;double[] sums;boolean[][]  Eanswers,Tanswers;int[] sum;
 
     void toScore(){
@@ -30,8 +30,7 @@ public class Activity1 extends AppCompatActivity {
         intent.putExtra("idqu",data.getIntExtra("idqu",0));
         intent.putExtra("quiz_name",data.getStringExtra("quiz_name"));
         intent.putExtra("idc",data.getStringExtra("name"));
-        intent.putExtra("time",ctime);
-        Log.d("Donny", "toScore: "+sums.length);
+        intent.putExtra("time",(int)ctime);
         startActivity(intent);
         finish();
     }
@@ -51,7 +50,7 @@ public class Activity1 extends AppCompatActivity {
         else Glide.with(this).load(R.drawable.no_image).into(imgq);
     }
 
-    boolean  calcul(int index) {
+    boolean calcul(int index) {
         Eanswers[index][0] = r1.isChecked();
         Eanswers[index][1] = r2.isChecked();
         Eanswers[index][2] = r3.isChecked();
@@ -182,10 +181,8 @@ public class Activity1 extends AppCompatActivity {
             }*/
         endtime=data.getIntExtra("time",0);
         if(endtime==0) timell.setVisibility(LinearLayout.GONE);
-        else {
-            timerm.setText(Integer.toString(endtime));
-            startCountdown(endtime*1000,1000);
-        }
+        timerm.setText(Integer.toString(endtime));
+        startCountdown(endtime*1000,1000);
         }
     private CountDownTimer countdownTimer;
     private void startCountdown(int totalTimeInMillis,int countDownInterval) {
@@ -193,7 +190,7 @@ public class Activity1 extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 ctime = Math.abs(millisUntilFinished / 1000 - endtime);
-                timer.setText(Integer.toString((int) ctime));
+                if(endtime!=0)timer.setText(Integer.toString((int) ctime));
             }
             @Override
             public void onFinish() {

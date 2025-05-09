@@ -12,6 +12,12 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/comme_bold</item>
     </style>
+    <style name="MyAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorAccent">@color/mediumPurple</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColorPrimary">@color/violet</item>
+        <item name="android:textColorSecondary">@color/purple</item>
+    </style>
     <style name="BaseButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">#9A46ED</item>
         <item name="android:textSize">40sp</item>

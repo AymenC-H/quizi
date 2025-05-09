@@ -30,7 +30,13 @@ public class quiz extends AppCompatActivity {
     private void list_quizz() {
         dbHelper = new DatabaseHelper(this);
         List<Quizz> table = dbHelper.getQuiz();
-        adapter = new Quizz_adapter(table);
+        adapter = new Quizz_adapter(table);String toast;
+        switch (table.size()){
+            case 0:toast="Create our 1st quiz here!";break;
+            case 1:toast="there is 1 quiz";break;
+            default:toast="there are "+table.size()+" quiz";break;
+        }
+        Toast.makeText(this,toast, Toast.LENGTH_LONG).show();
         recc.setAdapter(adapter);
         recc.setLayoutManager(new LinearLayoutManager(this));
     }

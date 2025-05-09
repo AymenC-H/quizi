@@ -16,6 +16,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -79,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
         scaleUpX.start();
         scaleUpY.start();
     }
-audio_player A;static SharedPreferences sp;
+    static SharedPreferences sp;
+
+    static final String CHANNEL_ID = "Evaluation channel";
+    static final int NOTIFICATION_ID = 1;
     boolean verif_psw(String pass){
         if (pass.length()<8) return false;
         int pw=0;
@@ -99,10 +103,9 @@ audio_player A;static SharedPreferences sp;
         return Math.abs(nb);
     }
     public void init_audio(){
-        sp = getSharedPreferences("myOptions", Context.MODE_PRIVATE);
         if (sp.getBoolean("soundOn", false)){
         try {
-            final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.button_push);
+            final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.button_click);
             mediaPlayer.seekTo(30);
             mediaPlayer.start();
         }
@@ -110,7 +113,11 @@ audio_player A;static SharedPreferences sp;
             Log.i("audio", "audio "+ e.getMessage());
         }}
     }
-    Button sbtn;Button pbtn;Button hbtn;Button obtn;EditText nm;EditText ps;EditText psc;RadioGroup cg;RadioButton c1;
+    static Button sbtn;static Button pbtn;static Button hbtn;static Button obtn;
+    static EditText nm;static EditText ps;static EditText psc;static RadioButton c1,c2,c3,c4;
+    static LinearLayout ll;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //
@@ -120,17 +127,21 @@ audio_player A;static SharedPreferences sp;
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
-        sbtn=findViewById(R.id.start_btn);
-        pbtn=findViewById(R.id.play_btn);
-        hbtn=findViewById(R.id.help_btn);
-        obtn=findViewById(R.id.option_btn);
+        sbtn = findViewById(R.id.start_btn);
+        pbtn = findViewById(R.id.play_btn);
+        hbtn = findViewById(R.id.help_btn);
+        obtn = findViewById(R.id.option_btn);
         //Button expbtn=findViewById(R.id.exp_btns);
-        nm=findViewById(R.id.name);
-        ps=findViewById(R.id.pass);
-        psc=findViewById(R.id.passc);
-        cg=findViewById(R.id.rgid);
-        c1=findViewById(R.id.choice1);c1.setChecked(true);
-        A= new audio_player();
+        nm = findViewById(R.id.name);
+        ps = findViewById(R.id.pass);
+        psc = findViewById(R.id.passc);
+        ll = findViewById(R.id.linearLayout6);
+        c1 = findViewById(R.id.choice1);
+        c1.setChecked(true);
+        c2 = findViewById(R.id.choice2);
+        c3 = findViewById(R.id.choice3);
+        c4 = findViewById(R.id.choice4);
+        sp = getSharedPreferences("myOptions", Context.MODE_PRIVATE);
         //String[] login={"",""};
         //boolean[] B1={false,false,false};
         //boolean[] B2={false,false,false};
@@ -140,7 +151,7 @@ audio_player A;static SharedPreferences sp;
             boolean[] op = {sp.getBoolean("soundOn", false), sp.getBoolean("notifOn", false), false};
             Intent i = new Intent(MainActivity.this, Options.class);
             i.putExtra("options", op);
-            animateButtonDown(obtn,i);
+            animateButtonDown(obtn, i);
             init_audio();
         });
         obtn.setOnTouchListener(new View.OnTouchListener() {
@@ -148,7 +159,7 @@ audio_player A;static SharedPreferences sp;
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        animateButtonDown(obtn,null);
+                        animateButtonDown(obtn, null);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
@@ -161,15 +172,40 @@ audio_player A;static SharedPreferences sp;
         hbtn.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, Help.class);
             init_audio();
-            animateButtonDown(hbtn,i);
+            animateButtonDown(hbtn, i);
         });
+        c1.setOnClickListener(v -> {
+            c1.setChecked(true);
+            c2.setChecked(false);
+            c3.setChecked(false);
+            c4.setChecked(false);
+        });
+        c2.setOnClickListener(v -> {
+            c1.setChecked(false);
+            c2.setChecked(true);
+            c3.setChecked(false);
+            c4.setChecked(false);
+        });
+        c3.setOnClickListener(v -> {
+            c1.setChecked(false);
+            c2.setChecked(false);
+            c3.setChecked(true);
+            c4.setChecked(false);
+        });
+        c4.setOnClickListener(v -> {
+            c1.setChecked(false);
+            c2.setChecked(false);
+            c3.setChecked(false);
+            c4.setChecked(true);
+        });
+
         hbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         //hbtn.setTranslationZ(0f);
-                        animateButtonDown(hbtn,null);
+                        animateButtonDown(hbtn, null);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
@@ -180,43 +216,39 @@ audio_player A;static SharedPreferences sp;
                 return false;
             }
         });
-        if(!(log.getBoolean("inscrit", false))){
-            pbtn.setVisibility(View.GONE);
-            pbtn.setEnabled(false);
-            cg.setVisibility(View.GONE);
-            cg.setEnabled(false);
-            sbtn.setText("sign up");
-            sbtn.setOnClickListener(v -> {
-                sp = getSharedPreferences("myOptions", Context.MODE_PRIVATE);
-                A.init_audio();
-            if (nm.length()<2) {
-                Toast.makeText(MainActivity.this,"Type a valid name",Toast.LENGTH_SHORT).show();
-            }
-            else if (!ps.getText().toString().equals(psc.getText().toString())){
-                Toast.makeText(MainActivity.this,"Retype the password correctly",Toast.LENGTH_SHORT).show();
-            }
-            else if (!verif_psw(ps.getText().toString())) {
-                Toast.makeText(MainActivity.this,"Le mot de passe est faible",Toast.LENGTH_SHORT).show();
-            }
-            else {
-                SharedPreferences prefs = getSharedPreferences("login_data", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("inscrit", true);
-                editor.putString("name", nm.getText().toString());
-                //editor.putString("pwd", ps.getText().toString());
-                Random rand = new Random();int nbr=rand.nextInt(999);
-                editor.putInt("pwd", encrypt(ps.getText().toString(),nbr));
-                editor.putInt("key", nbr);
-                editor.commit();
-                Toast.makeText(this, "LOGIN stored!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(MainActivity.this,MainActivity.class);
-                Log.i("sd","reached");
-                finish();
-                startActivity(i);
-            }
-        });
-        }
-        else {
+        if (!(log.getBoolean("inscrit", false))) {
+            sbtn.setVisibility(View.GONE);
+            sbtn.setEnabled(false);
+            ll.setVisibility(View.GONE);
+            ll.setEnabled(false);
+            pbtn.setText("sign up");
+            pbtn.setOnClickListener(v -> {
+                init_audio();
+                if (nm.length() < 2) {
+                    Toast.makeText(MainActivity.this, "Type a valid name", Toast.LENGTH_SHORT).show();
+                } else if (!ps.getText().toString().equals(psc.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Retype the password correctly", Toast.LENGTH_SHORT).show();
+                } else if (!verif_psw(ps.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Le mot de passe est faible", Toast.LENGTH_SHORT).show();
+                } else {
+                    SharedPreferences prefs = getSharedPreferences("login_data", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("inscrit", true);
+                    editor.putString("name", nm.getText().toString());
+                    //editor.putString("pwd", ps.getText().toString());
+                    Random rand = new Random();
+                    int nbr = rand.nextInt(999);
+                    editor.putInt("pwd", encrypt(ps.getText().toString(), nbr));
+                    editor.putInt("key", nbr);
+                    editor.commit();
+                    Toast.makeText(this, "LOGIN stored!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(MainActivity.this, MainActivity.class);
+                    Log.i("sd", "reached");
+                    finish();
+                    startActivity(i);
+                }
+            });
+        } else {
             //int[] Ts={0,0};
             psc.setVisibility(View.GONE);
             psc.setEnabled(false);
@@ -224,25 +256,28 @@ audio_player A;static SharedPreferences sp;
             //sbtn.setMargins(margins.leftMargin,margins.topMargin*5,margins.rightMargin,margins.bottomMargin);
             //sbtn.setLayoutParams(margins);
             pbtn.setOnClickListener(v -> {
-                //A.init_audio();
                 Intent i = new Intent(MainActivity.this, quiz.class);
                 startActivity(i);
             });
             sbtn.setOnClickListener(v -> {
-                sp = getSharedPreferences("myOptions", Context.MODE_PRIVATE);
-                A.init_audio();
+                init_audio();
                 if (log.getBoolean("inscrit", false)) {
                     if (nm.length() == 0 || ps.length() == 0)
                         Toast.makeText(MainActivity.this, "Type your email/password above!", Toast.LENGTH_SHORT).show();
-                    else if (true || nm.getText().toString().equals(log.getString("name", "")) && encrypt(ps.getText().toString(), log.getInt("key", 0)) == (log.getInt("pwd", 0))) {
+                    else if (nm.getText().toString().equals(log.getString("name", "")) && encrypt(ps.getText().toString(), log.getInt("key", 0)) == (log.getInt("pwd", 0))) {
                         //if (nm.getText().toString().equals(log.getString("name","")) && ps.getText().toString().equals(log.getString("pwd",""))){
                         if (c1.isChecked()) {
                             Intent i = new Intent(MainActivity.this, question_list.class);
                             startActivity(i);
-                        } else {
+                        } else if (c2.isChecked()) {
                             Intent i = new Intent(MainActivity.this, quiz.class);
                             i.putExtra("admin", true);
-
+                            startActivity(i);
+                        } else if (c3.isChecked()) {
+                            Intent i = new Intent(MainActivity.this, activity_child.class);
+                            startActivity(i);
+                        } else {
+                            Intent i = new Intent(MainActivity.this, activity_score.class);
                             startActivity(i);
                         }
                     } else
@@ -252,24 +287,8 @@ audio_player A;static SharedPreferences sp;
                     finish();
                 }
             });
-
-            /*expbtn.setOnClickListener(v -> {
-                A.init_audio();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    exportTable();
-                } else {
-                    checkStoragePermission();
-                }
-            });*/
         }
     }
-
-    /*private void checkStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            exportTable();
-        } else {
-            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }*/
 
     @Override
     protected void onResume() {
@@ -285,7 +304,7 @@ audio_player A;static SharedPreferences sp;
             obtn.setVisibility(View.VISIBLE);
             hbtn.setVisibility(View.VISIBLE);
         }, 500);
-        cg.startAnimation(fadeIn);
+        ll.startAnimation(fadeIn);
         nm.startAnimation(fadeIn);
         ps.startAnimation(fadeIn);
         psc.startAnimation(fadeIn);

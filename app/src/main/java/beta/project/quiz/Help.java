@@ -28,15 +28,19 @@ public class Help extends AppCompatActivity {
         //LinearLayout em=findViewById(R.id.email);
         Button ret=findViewById(R.id.button3);
         par.setText(HtmlCompat.fromHtml("<b>Description</b>: <br>" +
-                "QUIZI is a quiz game where you can make a quiz for your children. <br>" +
+                "QUIZI is a quiz maker app where you can make custom quiz for your children.<br>" +
                 "First you create a local account," +
                 "then you set the quiz for your child in 3 easy steps: <br>" +
-                "1. Click on the create button <br>" +
-                "2. Set a question, image (optional) and rules <br>" +
-                "3. Create and fill a quiz with the wanted questions <br>" +
-                "After this, you can hand the quiz for your child without needing a sign in <br><br>" +
-                "<b style=\"color=red;\">SAVE YOUR PASSWORD!!</b>, forgetting it means losing all the data<br>" +
-                "you can clear the app data to restart over <br>" +
+                "1. Click on the \"manage\" button <br>" +
+                "2. Set a question, image (optional) and the answers <br>" +
+                "3. Create a quiz with the wanted questions <br>" +
+                "After this, your children can pass a quiz via the \"play\" button without needing to sign in<br>" +
+                "In the options menu, you can change the sound and notification settings.<br>" +
+                "If you ticked the notification option, you get a notification when your child passes a quiz.<br>" +
+                "Then you would manage the children list and their scores by selecting which one to view.<br><br>" +
+                "<b style=\"color=red;\">SAVE YOUR PASSWORD!!</b>,<br>" +
+                "forgetting it means losing the ability to manage the database<br>" +
+                "In this case, you would clear the app data to start from scratch. <br>" +
                 "for any issues or question, you can contact the developer <br>", HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         ret.setOnClickListener(v -> {

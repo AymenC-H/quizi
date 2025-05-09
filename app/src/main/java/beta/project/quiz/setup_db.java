@@ -51,7 +51,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE2 + " (" + TABLE2_COL1 +");");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE3 + " (" + TABLE3_COL1 + ", " + TABLE3_COL2 + ", " + TABLE3_COL3 + ", " + TABLE3_COL4 + "," + TABLE3_COL5 + ", " + TABLE3_COL6 + ");");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE4 + " (" + TABLE4_COL1 + ", " + TABLE4_COL2 + ", " + TABLE4_COL3 + ", " + TABLE4_COL4 +", " + TABLE4_COL5 + ", " + TABLE4_COL6 + ", FOREIGN KEY (" + TABLE4_COL3.split(" ")[0] + ") REFERENCES " + TABLE3 + "(" + TABLE3_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE1 + " ( ids INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE1_COL1 + ", " + TABLE1_COL2 + ", " + TABLE1_COL3 + ", " + TABLE1_COL4 + ", " + TABLE1_COL5 +", FOREIGN KEY (" + TABLE1_COL1.split(" ")[0] + ") REFERENCES " + TABLE2 + "(" + TABLE2_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (" + TABLE1_COL3.split(" ")[0] + ") REFERENCES " + TABLE4 + "(" + TABLE4_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE1 + " ( ids INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE1_COL1 + ", " + TABLE1_COL2 + ", " + TABLE1_COL3 + ", " + TABLE1_COL4 + ", " + TABLE1_COL5 +", FOREIGN KEY (" + TABLE1_COL1.split(" ")[0] + ") REFERENCES " + TABLE2 + "(" + TABLE2_COL1.split(" ")[0] + ") ON UPDATE CASCADE, FOREIGN KEY (" + TABLE1_COL3.split(" ")[0] + ") REFERENCES " + TABLE4 + "(" + TABLE4_COL1.split(" ")[0] + ") ON UPDATE CASCADE ON DELETE CASCADE);");
     }
 
     @Override
@@ -172,12 +172,51 @@ class DatabaseHelper extends SQLiteOpenHelper {
             db.insert(TABLE1, null, values);
             db.close();
     }
+    List<Scorr> getScore() {
+            SQLiteDatabase db = this.getReadableDatabase();
+        cursor = db.rawQuery("SELECT " + TABLE1_COL1.split(" ")[0] + ", avg(" + TABLE1_COL2.split(" ")[0] + "),count(*) FROM " + TABLE1 + " group by "+ TABLE1_COL1.split(" ")[0], null);//+" WHERE "+TABLE4_COL1.split(" ")[0]+" = ?", new String[]{Integer.toString(id)});
+        List<Scorr> res=new ArrayList<>();
+        while (cursor.moveToNext()) {
+            res.add(new Scorr(cursor.getString(0),cursor.getInt(2), cursor.getDouble(1)));
+        }
+        return res;
+    }
+    void clearScore(){
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(TABLE1, null, null);
+            db.close();
+    }
 
     void addChild(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TABLE2_COL1.split(" ")[0], name);
         db.insert(TABLE2, null, values);
+        db.close();
+    }
+
+    List<Childd> getChildren(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        cursor = db.rawQuery("SELECT " + TABLE2_COL1.split(" ")[0] + " FROM " + TABLE2 , null);
+        List<Childd> res=new ArrayList<>();
+        while (cursor.moveToNext()) {
+            cursorc = db.rawQuery("SELECT " + TABLE1_COL4.split(" ")[0] + " FROM " + TABLE1 + " WHERE " + TABLE1_COL1.split(" ")[0] + " = ? LIMIT 1", new String[]{cursor.getString(0)});
+            res.add(new Childd(cursor.getString(0), (cursorc.moveToFirst()?cursorc.getLong(0)*1000:0)));
+        }
+        return res;
+    }
+    void updateChild(String oldname,String newname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TABLE2_COL1.split(" ")[0], newname);
+        db.update(TABLE2,values, TABLE2_COL1.split(" ")[0] + " = ?", new String[] {oldname});
+        db.close();
+    }
+    void removeChild(String[] name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (String n : name) {
+            db.delete(TABLE2, TABLE2_COL1.split(" ")[0] + " = ?", new String[]{n});
+        }
         db.close();
     }
 
@@ -323,7 +362,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                     do {
                         idqs[i++] = cursorids.getInt(0);
                     } while (cursorids.moveToNext());
-                    cursorc = db.rawQuery("SELECT count(*) FROM " + TABLE1 + " WHERE " + TABLE1_COL3.split(" ")[0]+" = ?", new String[]{cursor.getString(0)});
+                    cursorc = db.rawQuery("SELECT count(*) FROM " + TABLE1 + " WHERE " + TABLE1_COL3.split(" ")[0]+" = "+cursor.getInt(1), null);
                     resqu.add(new Quizz(cursor.getInt(1),cursor.getString(0), (cursorc.moveToFirst()?cursorc.getInt(0):0), idqs,cursor.getInt(2)));
                 }
             }while (cursor.moveToNext());

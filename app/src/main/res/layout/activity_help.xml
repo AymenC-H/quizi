@@ -48,7 +48,7 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="70dp"
+                    android:layout_width="56dp"
                     android:layout_height="52dp"
                     app:srcCompat="@drawable/calloutline" />
 
@@ -74,7 +74,7 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="70dp"
+                    android:layout_width="56dp"
                     android:layout_height="52dp"
                     app:srcCompat="@drawable/mailoutline" />
 
@@ -86,7 +86,7 @@
                     android:fontFamily="@font/comic_neue_bold"
                     android:gravity="fill_vertical"
                     android:text="chouraaymen@isims.univ.tn"
-                    android:textSize="24sp" />
+                    android:textSize="22sp" />
 
             </LinearLayout>
 

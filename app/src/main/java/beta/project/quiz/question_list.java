@@ -29,7 +29,7 @@ import java.util.List;
 public class question_list extends AppCompatActivity {
 
     DatabaseHelper dbHelper;
-    RecyclerView recc;
+    static RecyclerView recc;
     Question_adapter adapter;
     static Drawable outline,sharp;boolean[] checks;
     boolean fromUpdate,fromAdd,selectedOne;String nameq;
@@ -38,8 +38,13 @@ public class question_list extends AppCompatActivity {
     private void list_questions() {
         try {dbHelper = new DatabaseHelper(this);
             List<Quest> table = dbHelper.getQuestions();
-            adapter = new Question_adapter(table);
-            Toast.makeText(this, "in"+table.size(), Toast.LENGTH_SHORT).show();
+            adapter = new Question_adapter(table);String toast;
+            switch (table.size()){
+                case 0:toast="Create your 1st question here!";break;
+                case 1:toast="there is 1 question";break;
+                default:toast="there are "+table.size()+" questions";break;
+            }
+            Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
             recc.setAdapter(adapter);
             recc.setLayoutManager(new LinearLayoutManager(question_list.this));
         } catch (Exception e) {
@@ -78,7 +83,7 @@ public class question_list extends AppCompatActivity {
 
         animatorSet.start();
     }
-    EditText etTime;int maxtime;
+    static EditText etTime;int maxtime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,9 +242,10 @@ public class question_list extends AppCompatActivity {
                     Log.d("Done", "in 3!!"+e.getMessage());
                 }
             });
-
-        outline=ContextCompat.getDrawable(this,R.drawable.trash_bin_outline);
-        sharp=ContextCompat.getDrawable(this,R.drawable.trash_bin_sharp);
+        if (outline==null){
+            outline = ContextCompat.getDrawable(this, R.drawable.trash_bin_outline);
+            sharp = ContextCompat.getDrawable(this, R.drawable.trash_bin_sharp);
+        }
 
         dbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
