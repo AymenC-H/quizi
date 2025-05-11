@@ -22,10 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.EditText;
 
-import android.widget.RadioGroup;
-
 import android.widget.Toast;
-//import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -52,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         scaleDownY.start();
         if (i!=null){
         scaleDownY.addListener(
-                new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        startActivity(i);
-                        animateButtonUp(hbtn);
-                    }
-                });
+            new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    startActivity(i);
+                    animateButtonUp(hbtn);
+                }
+            });
         }
     }
 

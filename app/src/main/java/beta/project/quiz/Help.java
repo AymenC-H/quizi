@@ -18,13 +18,14 @@ public class Help extends AppCompatActivity {
         finish();
         startActivity(i);
     }
+    static TextView par,email,number;static LinearLayout nb;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        TextView par=findViewById(R.id.textView3);
-        TextView email=findViewById(R.id.emaili);
-        TextView number=findViewById(R.id.dial);
-        LinearLayout nb=findViewById(R.id.number);
+        par=findViewById(R.id.textView3);
+        email=findViewById(R.id.emaili);
+        number=findViewById(R.id.dial);
+        nb=findViewById(R.id.number);
         //LinearLayout em=findViewById(R.id.email);
         Button ret=findViewById(R.id.button3);
         par.setText(HtmlCompat.fromHtml("<b>Description</b>: <br>" +
@@ -38,10 +39,10 @@ public class Help extends AppCompatActivity {
                 "In the options menu, you can change the sound and notification settings.<br>" +
                 "If you ticked the notification option, you get a notification when your child passes a quiz.<br>" +
                 "Then you would manage the children list and their scores by selecting which one to view.<br><br>" +
-                "<b style=\"color=red;\">SAVE YOUR PASSWORD!!</b>,<br>" +
-                "forgetting it means losing the ability to manage the database<br>" +
+                "<b style=\"color=red;\">SAVE YOUR PASSWORD!!</b><br><br>" +
+                "Forgetting it means losing the ability to manage the database<br>" +
                 "In this case, you would clear the app data to start from scratch. <br>" +
-                "for any issues or question, you can contact the developer <br>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+                "For any issues or questions, you can contact the developer <br>", HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         ret.setOnClickListener(v -> {
             //A.init_audio();

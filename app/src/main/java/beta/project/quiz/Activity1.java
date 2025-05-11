@@ -19,6 +19,7 @@ public class Activity1 extends AppCompatActivity {
     static TextView questT,pg,field1,field2,field3;static CheckBox r1,r2,r3;String[] quests,answs1,answs2,answs3,imgs;
     static ImageView imgq;Intent data;
     static LinearLayout timell;
+    boolean b;
     int index,endtime;long ctime;double[] sums;boolean[][]  Eanswers,Tanswers;int[] sum;
 
     void toScore(){
@@ -165,6 +166,7 @@ public class Activity1 extends AppCompatActivity {
                 }
             }
         });
+        b=true;
     }
     @Override
     protected void onStart() {
@@ -181,11 +183,11 @@ public class Activity1 extends AppCompatActivity {
             }*/
         endtime=data.getIntExtra("time",0);
         if(endtime==0) timell.setVisibility(LinearLayout.GONE);
-        timerm.setText(Integer.toString(endtime));
-        startCountdown(endtime*1000,1000);
+        else timerm.setText(Integer.toString(endtime));
+        if(b)startCountdown(endtime*1000,1000);
         }
     private CountDownTimer countdownTimer;
-    private void startCountdown(int totalTimeInMillis,int countDownInterval) {
+    private void startCountdown(int totalTimeInMillis,int countDownInterval) {b=false;
         countdownTimer = new CountDownTimer(totalTimeInMillis, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {

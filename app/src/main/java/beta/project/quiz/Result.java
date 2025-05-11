@@ -28,18 +28,6 @@ import java.util.Arrays;
 
 public class Result extends AppCompatActivity {
     //private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 100;
-
-    private void requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {  // Android 13+
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)!= PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Notification permission is needed to notify the parent at the end of every quiz.", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                        101);
-            }
-        }
-    }
-
     //private ActivityResultLauncher<String> requestPermissionLauncher;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

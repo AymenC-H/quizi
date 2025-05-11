@@ -25,7 +25,7 @@ import java.util.List;
 public class quiz extends AppCompatActivity {
     DatabaseHelper dbHelper;
     Intent intent;
-    RecyclerView recc;
+    static RecyclerView recc;
     Quizz_adapter adapter;Quizz res;
     private void list_quizz() {
         dbHelper = new DatabaseHelper(this);
@@ -36,21 +36,22 @@ public class quiz extends AppCompatActivity {
             case 1:toast="there is 1 quiz";break;
             default:toast="there are "+table.size()+" quiz";break;
         }
-        Toast.makeText(this,toast, Toast.LENGTH_LONG).show();
+        Toast.makeText(this,toast, Toast.LENGTH_SHORT).show();
         recc.setAdapter(adapter);
         recc.setLayoutManager(new LinearLayoutManager(this));
     }
+    static Button abtn,ubtn;ImageButton dbtn;LinearLayout ll;ScrollView sv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         LinearLayout child=findViewById(R.id.child_side);
-        Button abtn=findViewById(R.id.add_but);
+        abtn=findViewById(R.id.add_but);
         recc=findViewById(R.id.recycler_view8);
-        Button ubtn=findViewById(R.id.update_button);
-        ImageButton dbtn=findViewById(R.id.del_but);
-        LinearLayout ll=findViewById(R.id.linearLayout3);
-        ScrollView sv=findViewById(R.id.scrollView4);
+        ubtn=findViewById(R.id.update_button);
+        dbtn=findViewById(R.id.del_but);
+        ll=findViewById(R.id.linearLayout3);
+        sv=findViewById(R.id.scrollView4);
         //list_quizz();
         try{
         Intent verify = getIntent();

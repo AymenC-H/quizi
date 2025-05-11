@@ -13,7 +13,6 @@
         android:layout_width="385dp"
         android:layout_height="639dp"
         android:layout_marginTop="10dp"
-        android:padding="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -85,7 +84,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/comic_neue_bold"
                     android:gravity="fill_vertical"
-                    android:text="chouraaymen@isims.univ.tn"
+                    android:text="chouraaymen@isimsf.u-sfax.tn"
                     android:textSize="22sp" />
 
             </LinearLayout>
@@ -94,13 +93,12 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:background="@drawable/light_button_design"
         android:id="@+id/button3"
-        android:layout_width="134dp"
-        android:layout_height="67dp"
+        android:layout_width="160dp"
+        android:layout_height="79dp"
+        android:background="@drawable/light_button_design"
         android:text="@string/ret"
         android:theme="@style/BaseButtonStyle"
-        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

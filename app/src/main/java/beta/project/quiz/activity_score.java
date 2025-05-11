@@ -25,7 +25,7 @@ import java.util.List;
 public class activity_score extends AppCompatActivity {
 
     DatabaseHelper dbHelper;
-    RecyclerView recc;
+    static RecyclerView recc;
     Scorr_adapter adapter;
     private void list_score() {
     try {dbHelper = new DatabaseHelper(this);
@@ -38,7 +38,7 @@ public class activity_score extends AppCompatActivity {
         Toast.makeText(this, "out"+e.getMessage(), Toast.LENGTH_LONG).show();
     }
 }
-    ImageButton clear_btn;
+    static ImageButton clear_btn;
 
     void toMain(){
         Intent intent = new Intent(activity_score.this, MainActivity.class);

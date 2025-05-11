@@ -44,7 +44,7 @@ public class question_list extends AppCompatActivity {
                 case 1:toast="there is 1 question";break;
                 default:toast="there are "+table.size()+" questions";break;
             }
-            Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
             recc.setAdapter(adapter);
             recc.setLayoutManager(new LinearLayoutManager(question_list.this));
         } catch (Exception e) {

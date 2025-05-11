@@ -23,10 +23,10 @@ import java.util.List;
 
 public class activity_child extends AppCompatActivity {
     DatabaseHelper dbHelper;
-    RecyclerView recc;
+    static RecyclerView recc;
     Childd_adapter adapter;
-    Button add_btn;
-    ImageButton dbtn;
+    static Button add_btn;
+    static ImageButton dbtn;
 
     private void list_children() {
         try {dbHelper = new DatabaseHelper(this);

@@ -5,7 +5,6 @@ import static beta.project.quiz.MainActivity.CHANNEL_ID;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -51,20 +50,22 @@ public class Options extends AppCompatActivity {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
                 NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
                 channel.setDescription(description);
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
             }
         }
     }
-    boolean[] ops;
+    boolean[] ops;static Switch ckbtn,ckbtn2;static Button cbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
         Intent data = getIntent();
         ops = data.getBooleanArrayExtra("options");
-        Button cbtn = findViewById(R.id.button);
-        Switch ckbtn = findViewById(R.id.ck1);
+        cbtn = findViewById(R.id.button);
+        ckbtn = findViewById(R.id.ck1);
         ckbtn.setChecked(ops[0]);
-        Switch ckbtn2 = findViewById(R.id.ck2);
+        ckbtn2 = findViewById(R.id.ck2);
         ckbtn2.setChecked(ops[1]);
         ckbtn2.setOnClickListener(v -> {
             if(ckbtn2.isChecked())requestNotificationPermission();
