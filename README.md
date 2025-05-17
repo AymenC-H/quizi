@@ -1,4 +1,4 @@
-# What is Quizi
+# What is Quizi ?
 ### Quizi (Quiz maker) is a local Android application made with JAVA the Android Studio IDE.
 - It is tested on the latest Android versions (13+)
 - I would like if you try it and send your feedback!
